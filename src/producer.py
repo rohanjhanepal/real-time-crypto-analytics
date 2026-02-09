@@ -62,7 +62,10 @@ async def main() -> None:
     setup_logging(cfg)
     r = redis_client(cfg)
 
-    tasks = [asyncio.create_task(run_symbol(cfg, r, s)) for s in cfg.symbols]
+    tasks = [
+        asyncio.create_task(
+            run_symbol(cfg, r, s)) for s in cfg.symbols
+            ]
     await asyncio.gather(*tasks)
 
 if __name__ == "__main__":

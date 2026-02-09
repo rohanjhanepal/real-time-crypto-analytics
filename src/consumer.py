@@ -34,6 +34,10 @@ def stream_key(cfg: Config, symbol: str) -> str:
     return f"{cfg.stream_prefix}{symbol}"
 
 def ensure_group(r: redis.Redis, stream: str, group: str) -> None:
+    '''
+    Create a consumer group on a stream if it doesnt exist.
+    If it already exists, Redis throws BUSYGROUP and we ignore it.
+    '''
     try:
         r.xgroup_create(stream, group, id="0", mkstream=True)
     except redis.ResponseError as e:
@@ -42,10 +46,14 @@ def ensure_group(r: redis.Redis, stream: str, group: str) -> None:
         raise
 
 def floor_bucket(ts_ms: int, bucket_ms: int) -> int:
+    '''
+    consumer takes trades and buckets them into fixed time windows.
+    This function computes bucket for trades.
+    '''
     return (ts_ms // bucket_ms) * bucket_ms
 
 def compute_and_cache(cfg: Config, r: redis.Redis, symbol: str) -> None:
-    # Read recent candles from SQLite for indicator computation (simple + reliable)
+    # Read recent candles from SQLite for indicator computation 
     import sqlite3
     con = sqlite3.connect(cfg.sqlite_path)
     try:
