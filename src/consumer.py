@@ -6,9 +6,9 @@ from dataclasses import dataclass
 import redis
 import pandas as pd
 
-from .common import Config, setup_logging
-from .storage import init_sqlite, insert_candle, write_latest
-from .indicators import rsi, macd, bollinger, sma, ema
+from src.common import Config, setup_logging
+from src.storage import init_sqlite, insert_candle, write_latest
+from src.indicators import rsi, macd, bollinger, sma, ema
 
 log = logging.getLogger("consumer")
 

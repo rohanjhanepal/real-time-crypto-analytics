@@ -6,7 +6,7 @@ from typing import Any
 import websockets
 import redis
 
-from .common import Config, setup_logging, now_ms
+from src.common import Config, setup_logging, now_ms
 
 log = logging.getLogger("producer")
 
