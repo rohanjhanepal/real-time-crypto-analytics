@@ -9,12 +9,21 @@ def ema(series: pd.Series, n: int) -> pd.Series:
 
 def rsi(close: pd.Series, n: int = 14) -> pd.Series:
     delta = close.diff()
+
     gain = delta.clip(lower=0)
     loss = -delta.clip(upper=0)
-    avg_gain = gain.ewm(alpha=1/n, adjust=False).mean()
-    avg_loss = loss.ewm(alpha=1/n, adjust=False).mean()
-    rs = avg_gain / (avg_loss.replace(0, np.nan))
-    return 100 - (100 / (1 + rs))
+
+    avg_gain = gain.ewm(alpha=1 / n, adjust=False).mean()
+    avg_loss = loss.ewm(alpha=1 / n, adjust=False).mean()
+
+    rs = avg_gain / avg_loss
+
+    rsi = 100 - (100 / (1 + rs))
+
+    rsi = rsi.where(avg_loss != 0, 100.0)
+    rsi = rsi.where(avg_gain != 0, 0.0)
+
+    return rsi
 
 def macd(close: pd.Series, fast: int = 12, slow: int = 26, signal: int = 9):
     m = ema(close, fast) - ema(close, slow)
