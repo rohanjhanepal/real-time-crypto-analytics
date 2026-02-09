@@ -159,7 +159,7 @@ def main() -> None:
                         r.xack(st, cfg.consumer_group, msg_id)
                     except Exception as e:
                         log.exception("Bad message %s %s: %s", st, msg_id, e)
-                        # send to DLQ
+                        # send to dead letter queue
                         r.xadd(cfg.dlq_stream, {"stream": st, "id": msg_id, "err": str(e), "fields": str(fields)})
                         r.xack(st, cfg.consumer_group, msg_id)
 
