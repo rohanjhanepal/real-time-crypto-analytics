@@ -28,7 +28,7 @@ The platform demonstrates scalable stream processing, fault-tolerant data pipeli
 ---
 
 ## System Architecture
-
+```
 External Exchange WebSocket
         |
         v
@@ -49,7 +49,7 @@ SQLite         Redis Cache
         |
         v
   Web Dashboard
-
+```
 ---
 
 ## Technology Stack
@@ -66,7 +66,7 @@ SQLite         Redis Cache
 
 ## Project Structure
 
-crypto-pipeline/
+```crypto-pipeline/
 ├── Dockerfile
 ├── docker-compose.yml
 ├── requirements.txt
@@ -80,7 +80,7 @@ crypto-pipeline/
     ├── indicators.py
     ├── storage.py
     └── dashboard.py
-
+```
 ---
 
 ## Installation and Setup
