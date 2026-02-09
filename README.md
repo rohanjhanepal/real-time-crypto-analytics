@@ -145,13 +145,28 @@ Once the containers are up and running run command below:
 
 ---
 
-## Limitations
+## Limitations and Future Improvements
 
-- SQLite is intended for small to medium workloads
-- No authentication or access control
-- Not designed for high-frequency trading
+While the current implementation is suitable for development and small-to-medium workloads, several enhancements are planned to improve scalability, security, and performance:
 
-For large-scale deployments, PostgreSQL and Kafka are recommended.
+- **Database Scalability**  
+  The current system uses SQLite for simplicity. Future versions will migrate to PostgreSQL to support higher write throughput, concurrent access, and improved reliability.
+
+- **Security and Access Control**  
+  Authentication, authorization, and role-based access control will be introduced to secure data access and dashboard usage.
+
+- **High-Frequency Processing Optimization**  
+  The current architecture prioritizes clarity and reliability over ultra-low latency. Future iterations will explore optimized ingestion pipelines, in-memory processing, and lower-level networking frameworks to support high-frequency trading workloads.
+
+- **Streaming Infrastructure Upgrade**  
+  Redis Streams will be complemented or replaced with Apache Kafka to enable higher throughput, stronger durability guarantees, and multi-region replication.
+
+- **Observability and Monitoring**  
+  Integration with Prometheus and Grafana is planned to provide detailed system metrics, latency tracking, and alerting.
+
+
+These improvements will let the platform to evolve from a development-oriented system into a production-grade, enterprise-ready analytics solution.
+
 
 ---
 
