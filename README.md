@@ -116,9 +116,14 @@ http://localhost:8501
 
 ### Stop Services
 
-docker compose down
+`docker compose down`
 
 ---
+
+### Run Tests
+Once the containers are up and running run command below:
+
+`docker compose run --rm consumer pytest -q`
 
 ## Reliability
 
