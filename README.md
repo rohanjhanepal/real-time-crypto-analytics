@@ -106,7 +106,7 @@ Edit the file and adjust parameters as required.
 
 Start all services:
 
-docker compose up --build
+`docker compose up --build`
 
 Open the dashboard in your browser:
 
