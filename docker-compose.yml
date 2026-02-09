@@ -1,0 +1,30 @@
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  producer:
+    build: .
+    command: ["python", "-m", "src.producer"]
+    env_file: .env
+    depends_on: [redis]
+
+  consumer:
+    build: .
+    command: ["python", "-m", "src.consumer"]
+    env_file: .env
+    volumes:
+      - ./data:/data
+    depends_on: [redis]
+
+  dashboard:
+    build: .
+    command: ["streamlit", "run", "src/dashboard.py", "--server.port=8501", "--server.address=0.0.0.0"]
+    env_file: .env
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/data
+    depends_on: [redis]
+
